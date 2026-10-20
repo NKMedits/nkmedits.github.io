@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Testing | Nathalie Kate Martinez</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    main { padding: clamp(1.25rem, 4vw, 3.5rem); }
+    .testing-intro { max-width: 1120px; margin: 0 auto 2.25rem; }
+    .testing-intro h2 { font-family: 'Didot', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 400; margin: 0 0 .45rem; }
+    .testing-intro p { color: #aaa; margin: 0; }
+    .section-menu { width: 100%; max-width: 1120px; margin: 0 auto; display: grid; gap: clamp(.85rem, 1.8vw, 1.35rem); }
+    .section-trigger {
+      width: 100%; min-height: clamp(88px, 11vw, 132px); max-height: 140px;
+      padding: clamp(1.2rem, 3vw, 2rem); box-sizing: border-box;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      background: #050505; border: 1px solid #282828; color: #f5f5f5;
+      text-align: left; cursor: pointer; border-radius: 2px;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .section-trigger:hover, .section-trigger:focus-visible {
+      transform: translateY(-5px); box-shadow: 0 12px 26px rgba(0,0,0,.42); border-color: #777; outline: none;
+    }
+    .section-trigger span:first-child { font-family: 'Didot', Georgia, serif; font-size: clamp(1.45rem, 3.2vw, 2.35rem); letter-spacing: .025em; }
+    .section-trigger .section-hint { color: #888; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .section-trigger .arrow { display: inline-block; margin-left: .5rem; font-size: 1.15rem; transition: transform .2s ease; }
+    .section-trigger:hover .arrow { transform: translateX(4px); }
+    .gallery-overlay {
+      position: fixed; inset: 0; z-index: 1000; display: none; overflow-y: auto;
+      background: rgba(0,0,0,.5); padding: clamp(1.2rem, 4vw, 3.25rem);
+      box-sizing: border-box; align-items: flex-start; justify-content: center;
+    }
+    .gallery-overlay.is-open { display: flex; }
+    .gallery-panel { width: 100%; max-width: 1120px; margin: auto; padding: clamp(.5rem, 1.5vw, 1.25rem) 0; }
+    .gallery-heading { margin: 0 0 1.4rem; font-family: 'Didot', Georgia, serif; font-weight: 400; font-size: clamp(1.8rem, 3.2vw, 2.6rem); color: #fff; text-shadow: 0 2px 14px #000; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2.6vw, 2rem) clamp(.85rem, 2vw, 1.45rem); }
+    .work-card { min-width: 0; color: #f2f2f2; }
+    .work-thumb {
+      position: relative; display: flex; width: 100%; aspect-ratio: 1 / 1; overflow: hidden;
+      align-items: flex-end; justify-content: flex-start; box-sizing: border-box;
+      padding: clamp(.75rem, 1.8vw, 1.25rem); background: linear-gradient(145deg, #343434, #101010 68%);
+      border: 1px solid rgba(255,255,255,.22); color: #fff; text-decoration: none;
+      isolation: isolate; transition: transform .22s ease, border-color .22s ease, filter .22s ease;
+    }
+    .work-thumb::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 75% 20%, rgba(255,255,255,.18), transparent 42%), linear-gradient(35deg, transparent 48%, rgba(255,255,255,.055) 49%, transparent 51%); }
+    .work-thumb:hover, .work-thumb:focus-visible { transform: translateY(-3px); border-color: #fff; filter: brightness(1.18); outline: none; }
+    .thumb-index { position: absolute; top: .7rem; left: .8rem; color: rgba(255,255,255,.58); font-size: .68rem; letter-spacing: .14em; }
+    .thumb-title { font-family: 'Didot', Georgia, serif; font-size: clamp(.95rem, 1.5vw, 1.35rem); line-height: 1.12; overflow-wrap: anywhere; }
+    .work-caption { padding-top: .75rem; }
+    .work-caption strong { display: block; color: #f4f4f4; font-size: clamp(.85rem, 1.15vw, 1rem); line-height: 1.35; font-weight: 600; }
+    .work-caption small { display: block; color: #aaa; font-size: clamp(.76rem, 1vw, .86rem); line-height: 1.45; margin-top: .22rem; }
+    .work-caption .agency { color: #aaa; font-size: .82rem; }
+    .empty-note { color: #bbb; margin: -.5rem 0 1.5rem; }
+    @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 620px) {
+      .section-trigger { min-height: 88px; }
+      .section-trigger .section-hint { display: none; }
+      .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.35rem .9rem; }
+      .gallery-overlay { padding: 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Nathalie Kate Martinez</h1>
+    <p>Editor &amp; Assistant Editor</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="testing-intro">
+      <h2>Selected Work</h2>
+      <p>A selection of editorial projects and creative experiments.</p>
+    </div>
+
+    <div class="section-menu" aria-label="Portfolio categories">
+      <button class="section-trigger" type="button" data-gallery="editor">
+        <span>Editor</span><span class="section-hint">Selected work <span class="arrow">↗</span></span>
+      </button>
+      <button class="section-trigger" type="button" data-gallery="assistant">
+        <span>Assistant Editor</span><span class="section-hint">Campaign work <span class="arrow">↗</span></span>
+      </button>
+      <button class="section-trigger" type="button" data-gallery="creative">
+        <span>Creative Work</span><span class="section-hint">Social &amp; demos <span class="arrow">↗</span></span>
+      </button>
+    </div>
+  </main>
+
+  <div class="gallery-overlay" id="galleryOverlay" aria-hidden="true">
+    <div class="gallery-panel" id="galleryPanel" role="dialog" aria-modal="true" aria-labelledby="galleryHeading">
+      <h2 class="gallery-heading" id="galleryHeading"></h2>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Nathalie Kate Martinez</p>
+  </footer>
+
+  <script>
+    const galleries = {
+      editor: {
+        title: "Editor",
+        items: [
+          { title: "Falling for My Incognito CEO", subtitle: "Editor | Vertical Series", href: "https://www.imdb.com/title/tt36972739/", index: "01" },
+          { title: "The Devil Wears Desire", subtitle: "Editor | Vertical Series", href: "https://www.imdb.com/title/tt34376328/", index: "02" },
+          { title: "Wish", subtitle: "Editor | Short Film", href: "https://www.imdb.com/title/tt32245348/", index: "03" },
+          { title: "Cursed", subtitle: "Editor | Short Film", index: "04" },
+          { title: "Red Rose Speakeasy", subtitle: "Editor | Short Film", index: "05" },
+          { title: "Plan B", subtitle: "Editor | Short Film", index: "06" }
+        ]
+      },
+      assistant: {
+        title: "Assistant Editor",
+        items: [
+          { title: "Thunderbolts*", network: "Disney & Marvel", agency: "X/AV", href: "https://xav.la/work/thunderbolts", index: "01" },
+          { title: "Karate Kids: Legends", network: "Sony", agency: "X/AV", href: "https://xav.la/work/karate-kids-legends", index: "02" },
+          { title: "The Boys S4", network: "Prime Video", agency: "X/AV", href: "https://xav.la/work/boys-season-4", index: "03" },
+          { title: "Furiosa", network: "Warner Bros.", agency: "X/AV", href: "https://xav.la/work/furiosa", index: "04" },
+          { title: "TMNT: Mutant Mayhem", network: "Paramount", agency: "X/AV", href: "https://xav.la/work/tmnt", index: "05" },
+          { title: "Toy Story 5", network: "Disney Pixar", agency: "Workshop Creative", href: "https://workshopcreative.net/campaign/toy-story-5/#", index: "06" },
+          { title: "Minions & Monsters", network: "Universal Pictures", agency: "Workshop Creative", href: "https://workshopcreative.net/campaign/minions-monsters/#", index: "07" },
+          { title: "In Your Dreams", network: "Netflix", agency: "Workshop Creative", href: "https://workshopcreative.net/campaign/in-your-dreams/#trailer", index: "08" },
+          { title: "SLOMW S4", network: "Hulu", agency: "Workshop Creative", href: "https://workshopcreative.net/campaign/the-secret-lives-of-mormon-wives/#", index: "09" },
+          { title: "Testaments", network: "Hulu", agency: "Workshop Creative", href: "https://workshopcreative.net/campaign/testaments/#", index: "10" },
+          { title: "Abbott Elementary S5", network: "ABC", agency: "Workshop Creative", href: "https://workshopcreative.net/campaign/abbott-elementary/#", index: "11" }
+        ]
+      },
+      creative: {
+        title: "Creative Work",
+        note: "Demo social edits — placeholder thumbnails for now.",
+        items: [
+          { title: "Bingo Night", index: "01", temporary: true },
+          { title: "Podcast TBA", index: "02", temporary: true }
+        ]
+      }
+    };
+
+    const overlay = document.getElementById("galleryOverlay");
+    const panel = document.getElementById("galleryPanel");
+    const heading = document.getElementById("galleryHeading");
+    const grid = document.getElementById("galleryGrid");
+    let previousFocus = null;
+
+    function makeCard(item, category) {
+      const card = document.createElement("article");
+      card.className = "work-card";
+      const thumb = document.createElement(item.href ? "a" : "div");
+      thumb.className = "work-thumb";
+      if (item.href) {
+        thumb.href = item.href;
+        thumb.target = "_blank";
+        thumb.rel = "noopener noreferrer";
+        thumb.setAttribute("aria-label", "Open " + item.title + " in a new tab");
+      } else {
+        thumb.setAttribute("role", "img");
+        thumb.setAttribute("aria-label", item.title + " thumbnail placeholder");
+      }
+      thumb.addEventListener("click", event => event.stopPropagation());
+      const number = document.createElement("span");
+      number.className = "thumb-index";
+      number.textContent = item.temporary ? "DEMO" : item.index;
+      const name = document.createElement("span");
+      name.className = "thumb-title";
+      name.textContent = item.title;
+      thumb.append(number, name);
+      card.appendChild(thumb);
+
+      const caption = document.createElement("div");
+      caption.className = "work-caption";
+      const strong = document.createElement("strong");
+      if (category === "assistant") {
+        strong.textContent = item.title + " | " + item.network;
+        const small = document.createElement("small");
+        small.className = "agency";
+        small.textContent = item.agency;
+        caption.append(strong, small);
+      } else {
+        strong.textContent = item.title;
+        caption.appendChild(strong);
+        if (item.subtitle) {
+          const small = document.createElement("small");
+          small.textContent = item.subtitle;
+          caption.appendChild(small);
+        }
+      }
+      card.appendChild(caption);
+      return card;
+    }
+
+    function openGallery(category, trigger) {
+      const gallery = galleries[category];
+      previousFocus = trigger;
+      heading.textContent = gallery.title;
+      grid.replaceChildren();
+      if (gallery.note) {
+        const note = document.createElement("p");
+        note.className = "empty-note";
+        note.textContent = gallery.note;
+        grid.appendChild(note);
+      }
+      gallery.items.forEach(item => grid.appendChild(makeCard(item, category)));
+      overlay.classList.add("is-open");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeGallery() {
+      overlay.classList.remove("is-open");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (previousFocus) previousFocus.focus();
+    }
+
+    document.querySelectorAll(".section-trigger").forEach(button => {
+      button.addEventListener("click", () => openGallery(button.dataset.gallery, button));
+    });
+    overlay.addEventListener("click", closeGallery);
+    panel.addEventListener("click", event => {
+      if (!event.target.closest(".work-thumb")) closeGallery();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && overlay.classList.contains("is-open")) closeGallery();
+    });
+  </script>
+</body>
+</html>
