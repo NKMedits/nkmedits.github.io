@@ -6,17 +6,20 @@
   <title>Portfolio Testing | Nathalie Kate Martinez</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    html, body { background-color: #111; }
+    html, body { background-color: #111; color: #eee; }
+    body header, body footer, body main, body .gallery-overlay { color: #eee; }
+    body nav ul li a { color: #eee; }
+    body footer p { color: #eee; }
     main { padding: clamp(1.25rem, 4vw, 3.5rem); }
     .testing-intro { max-width: 1120px; margin: 0 auto 2.25rem; text-align: center; }
-    .testing-intro h2 { font-family: 'Didot', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 400; margin: 0 0 .45rem; }
-    .testing-intro p { color: #aaa; margin: 0; }
+    .testing-intro h2 { font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 700; margin: 0 0 .45rem; color: #eee; }
+    .testing-intro p { color: #eee; margin: 0; }
     .section-menu { width: 100%; max-width: 1120px; margin: 0 auto; display: grid; gap: clamp(.85rem, 1.8vw, 1.35rem); }
     .section-trigger {
       width: 100%; min-height: clamp(88px, 11vw, 132px); max-height: 140px;
       padding: clamp(1.2rem, 3vw, 2rem); box-sizing: border-box;
       display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-      background: #050505; border: 1px solid #282828; color: #f5f5f5;
+      background: #050505; border: 1px solid #282828; color: #eee;
       text-align: left; cursor: pointer; border-radius: 2px;
       transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
     }
@@ -24,35 +27,35 @@
       transform: translateY(-5px); box-shadow: 0 12px 26px rgba(0,0,0,.42); border-color: #777; outline: none;
     }
     .section-trigger span:first-child { font-family: 'Didot', Georgia, serif; font-size: clamp(1.45rem, 3.2vw, 2.35rem); letter-spacing: .025em; }
-    .section-trigger .section-hint { color: #888; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+    .section-trigger .section-hint { color: #eee; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
     .section-trigger .arrow { display: inline-block; margin-left: .5rem; font-size: 1.15rem; transition: transform .2s ease; }
     .section-trigger:hover .arrow { transform: translateX(4px); }
     .gallery-overlay {
       position: fixed; inset: 0; z-index: 1000; display: none; overflow-y: auto;
-      background: rgba(0,0,0,.75); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); padding: clamp(1.2rem, 4vw, 3.25rem);
+      background: rgba(0,0,0,.5); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); padding: clamp(1.2rem, 4vw, 3.25rem);
       box-sizing: border-box; align-items: flex-start; justify-content: center;
     }
     .gallery-overlay.is-open { display: flex; }
     .gallery-panel { width: 100%; max-width: 1120px; margin: auto; padding: clamp(.5rem, 1.5vw, 1.25rem) 0; }
-    .gallery-heading { margin: 0 0 1.4rem; font-family: 'Didot', Georgia, serif; font-weight: 400; font-size: clamp(1.8rem, 3.2vw, 2.6rem); color: #fff; text-shadow: 0 2px 14px #000; }
+    .gallery-heading { margin: 0 0 1.4rem; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-weight: 700; font-size: clamp(1.8rem, 3.2vw, 2.6rem); color: #eee; text-shadow: 0 2px 14px #000; }
     .gallery-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2.6vw, 2rem) clamp(.85rem, 2vw, 1.45rem); }
-    .work-card { min-width: 0; color: #f2f2f2; }
+    .work-card { min-width: 0; color: #eee; }
     .work-thumb {
       position: relative; display: flex; width: 100%; aspect-ratio: 1 / 1; overflow: hidden;
       align-items: flex-end; justify-content: flex-start; box-sizing: border-box;
       padding: clamp(.75rem, 1.8vw, 1.25rem); background: linear-gradient(145deg, #343434, #101010 68%);
-      border: 1px solid rgba(255,255,255,.22); color: #fff; text-decoration: none;
+      border: 1px solid rgba(255,255,255,.22); color: #eee; text-decoration: none;
       isolation: isolate; transition: transform .22s ease, border-color .22s ease, filter .22s ease;
     }
     .work-thumb::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 75% 20%, rgba(255,255,255,.18), transparent 42%), linear-gradient(35deg, transparent 48%, rgba(255,255,255,.055) 49%, transparent 51%); }
     .work-thumb:hover, .work-thumb:focus-visible { transform: translateY(-3px); border-color: #fff; filter: brightness(1.18); outline: none; }
-    .thumb-index { position: absolute; top: .7rem; left: .8rem; color: rgba(255,255,255,.58); font-size: .68rem; letter-spacing: .14em; }
+    .thumb-index { position: absolute; top: .7rem; left: .8rem; color: #eee; font-size: .68rem; letter-spacing: .14em; }
     .thumb-title { font-family: 'Didot', Georgia, serif; font-size: clamp(.95rem, 1.5vw, 1.35rem); line-height: 1.12; overflow-wrap: anywhere; }
     .work-caption { padding-top: .75rem; }
-    .work-caption strong { display: block; color: #f4f4f4; font-size: clamp(.85rem, 1.15vw, 1rem); line-height: 1.35; font-weight: 600; }
-    .work-caption small { display: block; color: #aaa; font-size: clamp(.76rem, 1vw, .86rem); line-height: 1.45; margin-top: .22rem; }
-    .work-caption .agency { color: #aaa; font-size: .82rem; }
-    .empty-note { color: #bbb; margin: -.5rem 0 1.5rem; }
+    .work-caption strong { display: block; color: #eee; font-size: clamp(.85rem, 1.15vw, 1rem); line-height: 1.35; font-weight: 600; }
+    .work-caption small { display: block; color: #eee; font-size: clamp(.76rem, 1vw, .86rem); line-height: 1.45; margin-top: .22rem; }
+    .work-caption .agency { color: #eee; font-size: .82rem; }
+    .empty-note { color: #eee; margin: -.5rem 0 1.5rem; }
     @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
     @media (max-width: 620px) {
       .section-trigger { min-height: 88px; }
@@ -118,7 +121,8 @@
           { title: "Wish", subtitle: "Editor | Short Film", href: "https://www.imdb.com/title/tt32245348/", index: "03" },
           { title: "Cursed", subtitle: "Editor | Short Film", index: "04" },
           { title: "Red Rose Speakeasy", subtitle: "Editor | Short Film", index: "05" },
-          { title: "Plan B", subtitle: "Editor | Short Film", index: "06" }
+          { title: "Plan B", subtitle: "Editor | Short Film", index: "06" },
+          { title: "Burrow", subtitle: "Assistant Editor | Feature Film", index: "07" }
         ]
       },
       assistant: {
